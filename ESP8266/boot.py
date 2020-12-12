@@ -1,20 +1,17 @@
 try:
     import usocket as socket
-except:
+finally:
     import socket
 
 from time import sleep
 from machine import Pin
-import onewire, ds18x20
-
+import onewire
+import ds18x20
 import network
-
 import esp
-
-esp.osdebug(None)
-
 import gc
 
+esp.osdebug(None)
 gc.collect()
 
 ds_pin = Pin(4)
