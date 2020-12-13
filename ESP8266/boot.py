@@ -1,21 +1,19 @@
-try:
-    import usocket as socket
-finally:
-    import socket
-
-from time import sleep
+import time
+from umqttsimple import MQTTClient
+import ubinascii
+import machine
+import micropython
+import network
+import esp
 from machine import Pin
 import onewire
 import ds18x20
-import network
-import esp
+esp.osdebug(None)
 import gc
+gc.collect()
 
 esp.osdebug(None)
 gc.collect()
-
-ds_pin = Pin(4)
-ds_sensor = ds18x20.DS18X20(onewire.OneWire(ds_pin))
 
 ssid = 'XIXAO'
 password = 'Jack5528'
@@ -25,7 +23,7 @@ station = network.WLAN(network.STA_IF)
 station.active(True)
 station.connect(ssid, password)
 
-while station.isconnected() == False:
+while not station.isconnected():
     pass
 
 print('Connection successful')
