@@ -88,7 +88,7 @@ dsPin = machine.Pin(4)
 dsSensor = ds18x20.DS18X20(onewire.OneWire(dsPin))
 client = MQTTClient(clientID, mqttServerIP)
 
-client.reconnect()
+# client.reconnect()
 try:
     connectMQTT()
 except OSError as e:
