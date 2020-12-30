@@ -16,6 +16,8 @@ mqttServerIP = '192.168.1.105'
 lastMessage = 0
 messageInterval = 5
 
+previous_pipe_temp = None
+
 
 def connectMQTT():
     client.reconnect()
@@ -64,14 +66,35 @@ def readSensor():
         return 'Failed to read sensor.'
 
 
+def publishWaterUsage(data):
+    global previous_pipe_temp
+
+    if previous_pipe_temp is not None:
+        # print(float(data[1]) - float(previous_pipe_temp) > 1.0)
+        if float(data[1]) - float(previous_pipe_temp) > 1.0:
+            msg = b'usage,site=%s value=%s' % ("water", 1)
+            client.publish(mqttPublishTopic, msg)
+            print("hot in use")
+        elif float(data[1]) - float(previous_pipe_temp) < 0.0:
+            msg = b'usage,site=%s value=%s' % ("water", 0)
+            client.publish(mqttPublishTopic, msg)
+            print("hot not in use")
+
+    previous_pipe_temp = data[1]
+
+
 def publish():
     while True:
         try:
             checkWifi()
             sensors_data = readSensor()
             counter = 1
+
             for data in sensors_data:
                 print(data)
+                if data[0] == "pipe":
+                    publishWaterUsage(data=data)
+
                 msg = b'temp%s,site=%s value=%s' % (counter, data[0], data[1])
                 client.publish(mqttPublishTopic, msg)
                 counter += 1
@@ -88,7 +111,6 @@ dsPin = machine.Pin(4)
 dsSensor = ds18x20.DS18X20(onewire.OneWire(dsPin))
 client = MQTTClient(clientID, mqttServerIP)
 
-# client.reconnect()
 try:
     connectMQTT()
 except OSError as e:
