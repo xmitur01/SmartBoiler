@@ -1,10 +1,11 @@
 [Unit]
-Description=HS110-energyUsage Service
+Description=HS110-energyUsage Service used by Smart Boiler controller
 After=syslog.target
 
 [Service]
 Type=simple
 User=server
+Restart=always
 WorkingDirectory=/home/smart_boiler
 ExecStart=/usr/bin/python3 /home/smart_boiler/HS110/energyUsage.py
 StandardOutput=syslog

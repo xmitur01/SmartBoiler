@@ -1,0 +1,12 @@
+[Unit]
+Description=mqttServer container used by Smart Boiler controller
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker start -a mqtt-server
+ExecStop=/usr/bin/docker stop -t 10 mqtt-server
+
+[Install]
+WantedBy=multi-user.target
