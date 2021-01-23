@@ -1,0 +1,14 @@
+[Unit]
+Description=HS110-energyUsage Service
+After=syslog.target
+
+[Service]
+Type=simple
+User=server
+WorkingDirectory=/home/smart_boiler
+ExecStart=/usr/bin/python3 /home/smart_boiler/HS110/energyUsage.py
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
