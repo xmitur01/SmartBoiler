@@ -1,4 +1,5 @@
-sudo docker run -it -p 1883:1883 -p 9001:9001 eclipse-mosquitto
+sudo docker run -it -p 1883:1883 -p 9001:9001 --name mqtt-server eclipse-mosquitto
+# sudo docker start mqtt-server
 
 sudo docker run -d -p 8086:8086 -v influxdb:/var/lib/influxdb --name influxdb influxdb
 # sudo docker start influxdb
@@ -9,7 +10,8 @@ sudo docker run -d -p 8086:8086 -v influxdb:/var/lib/influxdb --name influxdb in
 #     create user telegraf with password 'telegraf'
 #     grant all on sensors to telegraf
 
-sudo docker run -v "$PWD"/docker/telegraf.conf:/etc/telegraf/telegraf.conf:ro telegraf
+sudo docker run -v "$PWD"/docker/telegraf.conf:/etc/telegraf/telegraf.conf:ro --name telegraf-mosquitto-influx telegraf
+# sudo docker start telegraf-mosquitto-influx
 
 sudo docker run -d --name=grafana -p 3000:3000 grafana/grafana
 # sudo docker start grafana
