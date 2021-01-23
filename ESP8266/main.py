@@ -11,7 +11,7 @@ import boot
 
 mqttPublishTopic = 'sensors'
 clientID = 'esp32-01'
-mqttServerIP = '192.168.1.105'
+mqttServerIP = '192.168.1.105'  # change to Your MQTT IP
 
 lastMessage = 0
 messageInterval = 5
@@ -92,10 +92,11 @@ def publish():
 
             for data in sensors_data:
                 print(data)
-                if data[0] == "pipe":
-                    publishWaterUsage(data=data)
+                name = "temp_pipe" if data[0] == "pipe" else "temp_tank"
+                # if data[0] == "pipe":
+                #     publishWaterUsage(data=data)
 
-                msg = b'temp%s,site=%s value=%s' % (counter, data[0], data[1])
+                msg = b'%s,site=%s value=%s' % (name, data[0], data[1])
                 client.publish(mqttPublishTopic, msg)
                 counter += 1
 

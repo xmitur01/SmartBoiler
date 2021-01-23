@@ -5,13 +5,6 @@ import paho.mqtt.client as mqtt
 import os
 import sys
 
-# async def turnOff():
-#     await plug.turn_off()
-#
-#
-# async def turnOn():
-#     await plug.turn_on()
-
 
 def getEnergyUsage():
     energy_data = asyncio.run(plug.get_emeter_realtime())
@@ -37,24 +30,32 @@ def initialize():
     return client, p
 
 
+def sentPayload(name, site, value):
+    payload = name + ',site=%s value=%s' % (site, value)
+    mqttClient.publish(topic=mqttPublishTopic, payload=payload)
+
+
 def publish():
     while True:
         energy_data = getEnergyUsage()
         wats = float(energy_data['power_mw']) / 1000
-        print(str(wats) + " W")
+        wat_hours = float(energy_data['total_wh'])
 
-        payload = 'power,site=%s value=%s' % ("bathroom", wats)
-        mqttClient.publish(topic=mqttPublishTopic, payload=payload)
+        # print(str(wats) + " W")
+        # print(str(wat_hours) + " Wh")
+
+        sentPayload(name="power", site="bathroom", value=wats)
+        sentPayload(name="energy_total", site="bathroom", value=wat_hours)
 
         time.sleep(updateInterval)
 
 
 mqttPublishTopic = 'sensors'
 clientID = 'HS110_boiler'
-mqttServerIP = '192.168.1.105'
+mqttServerIP = '192.168.1.105'  # change to Your MQTT IP
 updateInterval = 5
 
-plugIP = "192.168.1.104"
+plugIP = "192.168.1.100"    # change to Your socket IP
 
 mqttClient, plug = initialize()
 connectMQTT()

@@ -11,5 +11,5 @@ sudo docker run -d -p 8086:8086 -v influxdb:/var/lib/influxdb --name influxdb in
 
 sudo docker run -v "$PWD"/docker/telegraf.conf:/etc/telegraf/telegraf.conf:ro telegraf
 
-# sudo docker start grafana
 sudo docker run -d --name=grafana -p 3000:3000 grafana/grafana
+# sudo docker start grafana

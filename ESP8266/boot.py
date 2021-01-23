@@ -1,7 +1,7 @@
 import network
 
-ssid = 'XIXAO'
-password = 'Jack5528'
+ssid = 'XIXAO'  # change to Your Wi_fi ID
+password = 'Jack5528'   # change to Your Wi_fi password
 
 station = network.WLAN(network.STA_IF)
 station.active(True)
