@@ -25,7 +25,7 @@ def initialize():
     client = mqtt.Client(client_id=clientID)
 
     p = kasa.SmartPlug(plugIP)
-    asyncio.run(p.update())
+    asyncio.run(p.update()) # move async outside function into try expect with wait till success
 
     return client, p
 
@@ -36,6 +36,7 @@ def sentPayload(name, site, value):
 
 
 def publish():
+    # remove while cycle 
     while True:
         energy_data = getEnergyUsage()
         wats = float(energy_data['power_mw']) / 1000
@@ -56,7 +57,8 @@ mqttServerIP = '192.168.1.105'  # change to Your MQTT IP
 updateInterval = 5
 
 plugIP = "192.168.1.100"    # change to Your socket IP
-
+ 
 mqttClient, plug = initialize()
 connectMQTT()
+# put while cycle here + check connection to MQTT and socket online
 publish()
