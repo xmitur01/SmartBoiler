@@ -35,6 +35,7 @@ def checkWifi():
         time.sleep_ms(500)
         print(".")
         boot.station.connect()
+    # extend with connect to MQTT
 
 
 def decodeByteArray(byte_arr):
