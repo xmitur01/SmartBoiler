@@ -4,6 +4,8 @@ import asyncio
 import math
 from datetime import datetime, timedelta
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
+import time
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -306,6 +308,7 @@ def checkLimitTemp(sched):
     elif actual_temp < 42:
         real = actual_temp + (diff - ((42 - actual_temp) * 10 * diff_change))
 
+    print("good")
     if real <= 40:
         asyncio.run(turnOn())
 
@@ -458,7 +461,11 @@ client = influxdb.InfluxDBClient(host='localhost', port=8086, username='telegraf
 plug = kasa.SmartPlug(plugIP)
 # asyncio.run(plug.update())
 
-scheduler = AsyncIOScheduler()
+# scheduler = AsyncIOScheduler()
+scheduler = BackgroundScheduler()
+scheduler.start()
 scheduler.add_job(func=makeForecast, args=[scheduler], trigger='cron', hour='0', minute='15')
 scheduler.add_job(func=checkLimitTemp, args=[scheduler], trigger='interval', minutes=5)
-scheduler.start()
+
+while True:
+    time.sleep(1)
