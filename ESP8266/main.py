@@ -31,11 +31,16 @@ def restartAndReconnect():
 
 
 def checkWifi():
+    connection_lost = False
+
     while not boot.station.isconnected():
         time.sleep_ms(500)
         print(".")
+        connection_lost = True
         boot.station.connect()
-    # extend with connect to MQTT
+
+    if connection_lost:
+        client.reconnect()
 
 
 def decodeByteArray(byte_arr):

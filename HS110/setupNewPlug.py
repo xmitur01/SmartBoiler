@@ -5,7 +5,6 @@ print("----PLUG SET UP-----"
       "\n")
 print("Scanning network for devices...")
 
-
 devices = kasa.discover
 print(devices)
 
