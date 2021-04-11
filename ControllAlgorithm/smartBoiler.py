@@ -277,12 +277,12 @@ def MAPE(actual, predicted):
 
 
 # Socket switching
-async def turnOff():
-    await plug.turn_off()
+def turnOff():
+    asyncio.run(plug.turn_off())
 
 
-async def turnOn():
-    await plug.turn_on()
+def turnOn():
+    asyncio.run(plug.turn_on())
 
 
 # Control functions
@@ -310,13 +310,13 @@ def checkLimitTemp(sched):
 
     print("good")
     if real <= 40:
-        asyncio.run(turnOn())
+        turnOn()
 
         now = datetime.now()
         now_plus_10 = now + timedelta(minutes=4)
         t_off = str(now_plus_10).split('.')[0]
 
-        sched.add_job(func=asyncio.run(turnOff()), trigger='date', next_run_time=t_off)
+        sched.add_job(func=turnOff, trigger='date', next_run_time=t_off)
 
 
 def baseSwitching(sched):
@@ -327,10 +327,10 @@ def baseSwitching(sched):
     t_on2 = str(d) + " " + "13:00:00"
     t_off2 = str(d) + " " + "14:00:00"
 
-    sched.add_job(func=asyncio.run(turnOn()), trigger='date', next_run_time=t_on)
-    sched.add_job(func=asyncio.run(turnOff()), trigger='date', next_run_time=t_off)
-    sched.add_job(func=asyncio.run(turnOn()), trigger='date', next_run_time=t_on2)
-    sched.add_job(func=asyncio.run(turnOff()), trigger='date', next_run_time=t_off2)
+    sched.add_job(func=turnOn, trigger='date', next_run_time=t_on)
+    sched.add_job(func=turnOff, trigger='date', next_run_time=t_off)
+    sched.add_job(func=turnOn, trigger='date', next_run_time=t_on2)
+    sched.add_job(func=turnOff, trigger='date', next_run_time=t_off2)
 
 
 def planSwitchSocket(prediction, sched):
@@ -350,8 +350,8 @@ def planSwitchSocket(prediction, sched):
     t_off = str(d) + " " + formatTime(str(first_use)) + ":00:00"
     t_afternoon = str(d) + " " + formatTime(str(afternoon_min)) + ":00:00"
 
-    sched.add_job(func=asyncio.run(turnOn()), trigger='date', next_run_time=t_on)
-    sched.add_job(func=asyncio.run(turnOff()), trigger='date', next_run_time=t_off)
+    sched.add_job(func=turnOn, trigger='date', next_run_time=t_on)
+    sched.add_job(func=turnOff, trigger='date', next_run_time=t_off)
     sched.add_job(func=switchSocketAfternoon, args=[prediction, sched, afternoon_min], trigger='date',
                   next_run_time=t_afternoon)
 
@@ -361,7 +361,7 @@ def switchSocketAfternoon(prediction, sched, afternoon_min_index):
     actual_temp = queryLatestTankValue()['last']
     t = math.ceil(timeTillHeated(minTankTemp(usage_sum), actual_temp))
     if t > 0:
-        asyncio.run(turnOn())
+        turnOn()
 
         h = str((afternoon_min_index * 60 + t + 5) // 60)
         m = str((afternoon_min_index * 60 + t + 5) % 60)
@@ -371,7 +371,7 @@ def switchSocketAfternoon(prediction, sched, afternoon_min_index):
         d = datetime.date(datetime.now())
 
         t_off = str(d) + " " + h + ":" + m + ":" + "00"
-        sched.add_job(func=asyncio.run(turnOff()), trigger='date', next_run_time=t_off)
+        sched.add_job(func=turnOff, trigger='date', next_run_time=t_off)
 
 
 def makeForecast(sched):
