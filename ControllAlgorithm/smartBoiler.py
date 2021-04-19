@@ -459,9 +459,7 @@ eta = 0.98  # heater effectivity
 client = influxdb.InfluxDBClient(host='localhost', port=8086, username='telegraf', password='telegraf',
                                  database='sensors')
 plug = kasa.SmartPlug(plugIP)
-# asyncio.run(plug.update())
 
-# scheduler = AsyncIOScheduler()
 scheduler = BackgroundScheduler()
 scheduler.start()
 scheduler.add_job(func=makeForecast, args=[scheduler], trigger='cron', hour='0', minute='15')
