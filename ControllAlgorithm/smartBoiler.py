@@ -258,14 +258,14 @@ def predict(list_of_usage_lists):   # list of lists [oldest data, -> ,newest dat
         u2 = list_of_usage_lists[1]
         u3 = list_of_usage_lists[0]
         for i in range(0, 24):
-            p.append(round(ema([u3[i], u2[i], u1[i]], n), 2))
+            p.append(round(ema([u3[i], u2[i], u1[i]], n), 3))
     elif n == 4:
         u1 = list_of_usage_lists[3]
         u2 = list_of_usage_lists[2]
         u3 = list_of_usage_lists[1]
         u4 = list_of_usage_lists[0]
         for i in range(0, 24):
-            p.append(round(ema([u4[i], u3[i], u2[i], u1[i]], n), 2))
+            p.append(round(ema([u4[i], u3[i], u2[i], u1[i]], n), 4))
 
     return p
 
@@ -450,7 +450,7 @@ plugIP = "192.168.1.100"  # change to Your socket IP
 tank_volume = 80  # change to Your tank volume [l]
 heater_power = 2400  # change to Your tank heater power [W]
 
-avr_cold_H2O_temp = 8  # [C]
+avr_cold_H2O_temp = 8.7  # [C]
 normal_H2O_temp = 37  # [C]
 thermal_capacity_H2O = 4175  # at 40 degrees
 limit_tank_temp = 40  # [C]
