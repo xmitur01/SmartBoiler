@@ -258,14 +258,14 @@ def predict(list_of_usage_lists):   # list of lists [oldest data, -> ,newest dat
         u2 = list_of_usage_lists[1]
         u3 = list_of_usage_lists[0]
         for i in range(0, 24):
-            p.append(round(ema([u3[i], u2[i], u1[i]], n), 3))
+            p.append(round(ema([u3[i], u2[i], u1[i]], n), 2))
     elif n == 4:
         u1 = list_of_usage_lists[3]
         u2 = list_of_usage_lists[2]
         u3 = list_of_usage_lists[1]
         u4 = list_of_usage_lists[0]
         for i in range(0, 24):
-            p.append(round(ema([u4[i], u3[i], u2[i], u1[i]], n), 4))
+            p.append(round(ema([u4[i], u3[i], u2[i], u1[i]], n), 2))
 
     return p
 
