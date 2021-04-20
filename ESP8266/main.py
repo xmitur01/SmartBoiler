@@ -35,7 +35,6 @@ def checkWifi():
 
     while not boot.station.isconnected():
         time.sleep_ms(500)
-        print(".")
         connection_lost = True
         boot.station.connect()
 
@@ -100,8 +99,6 @@ def publish():
             for data in sensors_data:
                 print(data)
                 name = "temp_pipe" if data[0] == "pipe" else "temp_tank"
-                # if data[0] == "pipe":
-                #     publishWaterUsage(data=data)
 
                 msg = b'%s,site=%s value=%s' % (name, data[0], data[1])
                 client.publish(mqttPublishTopic, msg)

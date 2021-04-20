@@ -3,11 +3,9 @@ import kasa
 import asyncio
 import math
 from datetime import datetime, timedelta
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 import time
 
-import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -170,7 +168,6 @@ def dailyUsagePer15minn(index_list, tank_data_list):
         water_before, water_after = wrapTempToWaterTemp(temp_before=tank_before, temp_after=tank_after)
 
         used = calculateUsedWater(temp_tank_before=water_before, temp_tank_after=water_after)
-        # print(round(used, 1))
 
         # add new interval with usage or extend last, depending on time
         if i > 0:
