@@ -65,11 +65,13 @@ def readSensor():
                 reformat_temp = ('{0:3.1f}'.format(sensor_temp))
                 sensors_temperatures.append([decodeByteArray(byte_arr=rom), reformat_temp])
             else:
-                return 'Invalid sensor readings.'
+                print('Invalid sensor readings.')
+                return []
 
         return sensors_temperatures
     except OSError:
-        return 'Failed to read sensor.'
+        print('Failed to read sensor.')
+        restartAndReconnect()
 
 
 def publishWaterUsage(data):
