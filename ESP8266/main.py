@@ -62,7 +62,7 @@ def readSensor():
             sensor_temp = dsSensor.read_temp(rom)
 
             if isinstance(sensor_temp, float) or (isinstance(sensor_temp, int)):
-                reformat_temp = ('{0:3.1f}'.format(sensor_temp))   # b was before ''
+                reformat_temp = ('{0:3.1f}'.format(sensor_temp))
                 sensors_temperatures.append([decodeByteArray(byte_arr=rom), reformat_temp])
             else:
                 return 'Invalid sensor readings.'
@@ -76,7 +76,6 @@ def publishWaterUsage(data):
     global previous_pipe_temp
 
     if previous_pipe_temp is not None:
-        # print(float(data[1]) - float(previous_pipe_temp) > 1.0)
         if float(data[1]) - float(previous_pipe_temp) > 1.0:
             msg = b'usage,site=%s value=%s' % ("water", 1)
             client.publish(mqttPublishTopic, msg)
