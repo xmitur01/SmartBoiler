@@ -1,6 +1,6 @@
 [Unit]
 Description=Contreoll algorithm-service Service used by Smart Boiler controller
-After=syslog.target
+After=syslog.target influxdb.service
 
 [Service]
 Type=simple
