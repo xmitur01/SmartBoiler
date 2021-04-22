@@ -170,7 +170,6 @@ def dailyUsagePer15minn(index_list, tank_data_list):
         water_before, water_after = wrapTempToWaterTemp(temp_before=tank_before, temp_after=tank_after)
 
         used = calculateUsedWater(temp_tank_before=water_before, temp_tank_after=water_after)
-        # print(round(used, 1))
 
         # add new interval with usage or extend last, depending on time
         if i > 0:
@@ -308,7 +307,6 @@ def checkLimitTemp(sched):
     elif actual_temp < 42:
         real = actual_temp + (diff - ((42 - actual_temp) * 10 * diff_change))
 
-    print("good")
     if real <= 40:
         turnOn()
 
