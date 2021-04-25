@@ -305,7 +305,6 @@ def checkLimitTemp(sched):
     elif actual_temp < 42:
         real = actual_temp + (diff - ((42 - actual_temp) * 10 * diff_change))
 
-    print("good")
     if real <= 40:
         turnOn()
 

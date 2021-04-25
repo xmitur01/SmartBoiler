@@ -80,11 +80,10 @@ def publishWaterUsage(data):
         if float(data[1]) - float(previous_pipe_temp) > 1.0:
             msg = b'usage,site=%s value=%s' % ("water", 1)
             client.publish(mqttPublishTopic, msg)
-            print("hot in use")
+
         elif float(data[1]) - float(previous_pipe_temp) < 0.0:
             msg = b'usage,site=%s value=%s' % ("water", 0)
             client.publish(mqttPublishTopic, msg)
-            print("hot not in use")
 
     previous_pipe_temp = data[1]
 
