@@ -1,5 +1,5 @@
 [Unit]
-Description=mqttServer container used by Smart Boiler controller
+Description=mqttServer container used by Smart Boiler controller as server for MQTT communication
 Requires=docker.service
 After=docker.service
 

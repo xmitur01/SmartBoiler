@@ -1,5 +1,5 @@
 [Unit]
-Description=telegraf container used by Smart Boiler controller
+Description=telegraf container used by Smart Boiler controller for transfering values from MQTT server to database
 Requires=docker.service influxdb.service mqttBroker.service
 After=docker.service influxdb.service mqttBroker.service
 

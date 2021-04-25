@@ -1,5 +1,5 @@
 [Unit]
-Description=Contreoll algorithm-service Service used by Smart Boiler controller
+Description=Control algorithm-service. Service used by Smart Boiler controller. Controlles water heating and predictions.
 Requires=influxdb.service
 After=syslog.target influxdb.service
 

@@ -1,5 +1,5 @@
 [Unit]
-Description=influxdb container used by Smart Boiler controller
+Description=influxdb container used by Smart Boiler controller to store sensor data.
 Requires=docker.service
 After=docker.service
 

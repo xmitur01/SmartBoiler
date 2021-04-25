@@ -1,5 +1,5 @@
 [Unit]
-Description=HS110-energyUsage Service used by Smart Boiler controller
+Description=HS110-energyUsage Service used by Smart Boiler controller to gather energy consumption data
 After=syslog.target
 
 [Service]

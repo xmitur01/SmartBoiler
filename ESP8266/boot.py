@@ -1,3 +1,10 @@
+"""
+Implementation of NodeMCU ESP 8266 boot sequence.
+Provides Wi-Fi connection.
+
+author: J.Mitura (xmitur01)
+version: 1.0
+"""
 import network
 
 ssid = 'SSID'  # change to Your Wi_fi ID

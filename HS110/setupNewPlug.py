@@ -1,3 +1,10 @@
+"""
+Script for Tp-Link HS110 smart plug setup.
+Run after connecting to plug Wi-Fi network.
+
+author: J.Mitura (xmitur01)
+version: 1.0
+"""
 import kasa
 
 
