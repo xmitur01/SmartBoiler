@@ -1,0 +1,16 @@
+[Unit]
+Description=Control algorithm-service. Service used by Smart Boiler controller. Controlles water heating and predictions.
+Requires=influxdb.service
+After=syslog.target influxdb.service
+
+[Service]
+Type=simple
+User=server
+Restart=always
+WorkingDirectory=/home/smart_boiler
+ExecStart=/usr/bin/python3 /home/smart_boiler/ControllAlgorithm/smartBoiler.py
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

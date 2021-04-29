@@ -1,0 +1,12 @@
+[Unit]
+Description=telegraf container used by Smart Boiler controller for transfering values from MQTT server to database
+Requires=docker.service influxdb.service mqttBroker.service
+After=docker.service influxdb.service mqttBroker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker start -a telegraf-mosquitto-influx
+ExecStop=/usr/bin/docker stop -t 10 telegraf-mosquitto-influx
+
+[Install]
+WantedBy=multi-user.target
