@@ -26,4 +26,4 @@ approach to uploading code on MCU located in ESP8266 folder. After upload marked
 
 ## Smart plug
 
-Tp-Link HS110 smart plug has to be connected to your Wi-Fi network by following guid.
+Tp-Link HS110 smart plug has to be connected to your Wi-Fi network by following guid delivered with socket or using terminal see https://python-kasa.readthedocs.io/en/latest/cli.html.
